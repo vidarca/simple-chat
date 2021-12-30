@@ -10,31 +10,31 @@
 </template>
 
 <script>
-import { DeepstreamClient } from "@deepstream/client";
-import { computed, ref, watch } from "vue-demi";
+import { ref, inject, watch } from "vue";
 
 export default {
   name: "SimpleChat",
-  props: {
-    selectedChat: String,
-    client: DeepstreamClient,
-    chatData: Array,
-  },
-  setup(props) {
-    const selectedChat = ref(computed(() => props.selectedChat));
+  setup() {
+    const store = inject("store");
     const chat = ref([]);
 
-    watch(selectedChat, () => {
-      if (selectedChat?.value) {
-        chat.value = props.chatData;
-        props.client.event.subscribe(`${selectedChat.value}`, (response) => {
-          chat.value.push(response);
-        });
-      }
+    watch(store.selectedChat, () => {
+      chat.value = state.record.get("chats").find(c => c.id === store.selectedChat.id).data;
+      state.client.event.subscribe(`chat/${store.selectedChat.id}`, (response) => {
+        chat.value.push(response);
+      });
     });
+
+    const function sendMessage(message) {
+      state.client.event.emit(`chat/${store.selectedChat.id}`, {
+        message,
+        from: store.currentUser.username
+      })
+    }
 
     return {
       chat,
+      store,
     };
   },
 };
