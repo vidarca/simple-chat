@@ -1,51 +1,24 @@
 {
   "name": "simple-chat",
-  "version": "0.1.0",
-  "private": true,
+  "version": "1.0.0",
+  "description": "## Project setup ``` npm install ```",
+  "main": "index.js",
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "deepstream:install": "cd deepstream & npm install",
+    "deepstream:serve": "cd deepstream & node index.js",
+    "vue:install": "cd simple-chat-vue & npm install",
+    "vue:serve": "cd simple-chat-vue & npm run serve",
+    "vue:build": "cd simple-chat-vue & npm run build",
+    "vue:lint": "cd simple-chat-vue & npm run lint"
   },
-  "dependencies": {
-    "@deepstream/client": "^5.2.5",
-    "@quasar/extras": "^1.0.0",
-    "@vuelidate/core": "^2.0.0-alpha.33",
-    "@vuelidate/validators": "^2.0.0-alpha.26",
-    "core-js": "^3.6.5",
-    "quasar": "^2.0.0",
-    "vue": "^3.0.0"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vidarca/simple-chat.git"
   },
-  "devDependencies": {
-    "@vue/cli-plugin-babel": "~4.5.0",
-    "@vue/cli-plugin-eslint": "~4.5.0",
-    "@vue/cli-service": "~4.5.0",
-    "@vue/compiler-sfc": "^3.0.0",
-    "babel-eslint": "^10.1.0",
-    "eslint": "^6.7.2",
-    "eslint-plugin-vue": "^7.0.0",
-    "postcss-rtl": "^1.2.3",
-    "sass": "1.32.12",
-    "sass-loader": "^10.1.0",
-    "vue-cli-plugin-quasar": "~4.0.4"
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vidarca/simple-chat/issues"
   },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true
-    },
-    "extends": [
-      "plugin:vue/vue3-essential",
-      "eslint:recommended"
-    ],
-    "parserOptions": {
-      "parser": "babel-eslint"
-    },
-    "rules": {}
-  },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not dead"
-  ]
+  "homepage": "https://github.com/vidarca/simple-chat#readme"
 }

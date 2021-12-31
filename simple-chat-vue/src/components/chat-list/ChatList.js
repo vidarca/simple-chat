@@ -41,7 +41,7 @@ export default {
     };
 
     const getLastMessage = (message) => {
-      if (!message.message) {
+      if (!message || !message.message) {
         return "No messages jet";
       }
       return `${message.from === store.state.currentUser.id ? "You: " : `${getUserName(message.from)}: `} ${message.message}`;
@@ -50,7 +50,7 @@ export default {
     const getUserName = (userId) => store.state.initialUsers.find(u => u.id === userId).name;
 
     const getLastMessageTime = (message) => {
-      if (!message.dateSent) {
+      if (!message || !message.dateSent) {
         return "";
       }
       const date = new Date(message.dateSent);
