@@ -13,12 +13,17 @@ export default {
       if (typeof store.state.selectedChat.id === "string") {
         chat.value = store.state.chatRecord[store.state.selectedChat.id]
           .get("chat").data;
+        setTimeout(() => {
+          window.scrollTo(0, document.body.scrollHeight);
+        }, 5);
         store.getters.getEventSubscription(
           `chat/${store.state.selectedChat.id}`,
           (response) => {
             chat.value.push(response);
             setTimeout(() => {
-              window.scrollTo(0, document.body.scrollHeight)
+              document.getElementsByTagName("html")[0].style.scrollBehavior = "smooth";
+              window.scrollTo(0, document.body.scrollHeight);
+              document.getElementsByTagName("html")[0].style.scrollBehavior = "unset";
             }, 200);
           }
         );
@@ -28,7 +33,7 @@ export default {
     });
 
     const sendMessage = () => {
-      if (messageText.value.trim() !== ""){
+      if (messageText.value.trim() !== "") {
         store.mutations.emitEvent(`chat/${store.state.selectedChat.id}`, {
           message: messageText.value.trim(),
           from: store.state.currentUser.id,

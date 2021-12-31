@@ -1,20 +1,28 @@
 @import '~quasar-variables-styl'
 
-@function chatClipPath()
-  $restult: 100% 0%, 0% 0%, 0% 100%, 100% 100%
-  @for $i from 1 through 0.5 to 180
-    $result: $result, 
-
 .inchat
+  &_container
+    &::before
+      content: ""
+      background-color: rgba(255, 255, 255, 0.5)
+      height: 100%
+      width: 100%
+      position: absolute
+      top: 0
+      left: 0
+      z-index: 0
   &_box
     display: block
     width: 100%
+    z-index: 1
   &_write
     min-height: 56px
     width: 100%
     margin: 5px 0
     &-input
-      width: 50%
+      width: 90%
+      @media screen and ( min-width: $breakpoint-sm-max )
+        width: 50%
     &-icon
       width: 46px
       height: 46px

@@ -3,22 +3,25 @@
     <q-layout view="hHh Lpr lFf" style="height: 100vh; max-height: 100vh">
       <q-header class="bg-indigo-10">
         <q-toolbar>
-          <q-avatar>
-            <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg" />
-          </q-avatar>
+          <q-icon
+            name="menu"
+            color="white"
+            size="26px"
+            @click="store.state.userChecked ? drawer = !drawer : ''"
+          />
 
           <q-toolbar-title>Simple Chat</q-toolbar-title>
 
-          <Login />
+          <Login v-if="store.state.onlineUsersChecked" />
         </q-toolbar>
       </q-header>
       <q-drawer
         v-model="drawer"
-        :width="350"
+        :width="store.state.drawerWidth"
         :breakpoint="500"
         class="bg-grey-3"
       >
-        <ChatList v-if="drawer"/>
+        <ChatList v-if="drawer" />
       </q-drawer>
       <q-page-container class="chat">
         <SimpleChat />
@@ -32,7 +35,15 @@ import SimpleChat from "./components/simple-chat/SimpleChat.vue";
 import Login from "./components/login/Login.vue";
 import ChatList from "./components/chat-list/ChatList.vue";
 
-import { ref, provide, watch, computed } from "vue";
+import {
+  ref,
+  provide,
+  watch,
+  computed,
+  onBeforeUnmount,
+  onMounted,
+  onBeforeMount,
+} from "vue";
 import store from "./store";
 
 export default {
@@ -48,14 +59,27 @@ export default {
     provide("store", store);
 
     const selectedChat = ref(computed(() => store.state.selectedChat));
-    const currentUser = ref(computed(() => store.state.currentUser));
+    const userChecked = ref(computed(() => store.state.userChecked));
 
-    watch(currentUser, () => {
-      if (typeof currentUser.value.id === "number") {
+    onBeforeMount(() => {
+      store.mutations.getDrawerWith();
+      store.mutations.getOnlineUsers();
+    });
+
+    onMounted(() => {
+      window.addEventListener("resize", store.mutations.getDrawerWith);
+    });
+
+    onBeforeUnmount(() => {
+      window.removeEventListener("resize", store.mutations.getDrawerWith());
+    });
+
+    watch(userChecked, () => {
+      if (userChecked.value) {
         drawer.value = true;
-      } else {
-        drawer.value = false;
+        return;
       }
+      drawer.value = false;
     });
 
     watch(selectedChat, () => {
@@ -76,22 +100,13 @@ export default {
 </script>
 
 <style lang="sass">
-html
-  scroll-behavior: smooth
 .chat
   background-image: url("./assets/chat-background.jpg")
-  background-size: cover
-  background-repeat: no-repeat
+  background-size: contain
+  background-repeat: repeat
   background-position: top center
-  &::before
-    content: ""
-    background-color: rgba(255, 255, 255, 0.7)
-    height: 100%
-    width: 100%
-    position: absolute
-    top: 0
-    left: 0
-
 .q-avatar
   cursor: pointer
+.cursor-default
+  cursor: default !important
 </style>

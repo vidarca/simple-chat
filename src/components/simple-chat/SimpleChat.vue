@@ -1,5 +1,5 @@
 <template>
-  <q-page class="column justify-end">
+  <q-page class="inchat_container column justify-end q-px-md">
     <div class="inchat_box">
       <div v-for="message in chat" :key="message.dateSent">
         <q-chat-message
@@ -16,7 +16,7 @@
           :text="[message.message]"
           :stamp="getTime(message)"
           size="6"
-          bg-color="white"
+          bg-color="yellow-2"
           v-else
         />
       </div>
@@ -24,7 +24,6 @@
     <div class="inchat_write flex flex-center no-wrap"  v-if="typeof store.state.selectedChat.id === 'string'">
       <q-input
         class="inchat_write-input"
-        rounded
         outlined
         autogrow
         bg-color="indigo-1"

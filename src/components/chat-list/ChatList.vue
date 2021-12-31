@@ -3,7 +3,7 @@
     class="fit bg-white custom-chat"
     v-if="chats.length"
   >
-    <q-list class="custom-chat_list">
+    <q-list class="custom-chat_list" :style="'width:' + store.state.drawerWidth + 'px'">
       <q-item
         :class="{'rounded-borders custom-chat_item': true, 'selected': store.state.selectedChat.id === chat.id}"
         clickable

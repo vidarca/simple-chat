@@ -8,12 +8,19 @@
       v-for="user in store.state.initialUsers"
       :key="user.id"
     >
-      <q-tooltip class="bg-indigo-3 text-body2" anchor="center left" self="center right" :offset="[-10, -10]">
-        Loggin as {{ user.name }}
-      </q-tooltip>
-      <q-avatar @click="store.mutations.login(user)">
-        <img :src="user.avatar" />
-      </q-avatar>
+      <div v-if="!user.logged">
+        <q-tooltip
+          class="bg-indigo-3 text-body2"
+          anchor="center left"
+          self="center right"
+          :offset="[5, 5]"
+        >
+          {{ !user.logged ? "Loggin as " + user.name : "Already logged" }}
+        </q-tooltip>
+        <q-avatar @click="store.mutations.login(user)">
+          <img :src="user.avatar" />
+        </q-avatar>
+      </div>
     </div>
   </div>
   <div class="flex flex-center" v-else>

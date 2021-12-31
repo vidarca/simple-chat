@@ -14,16 +14,8 @@ export default {
       chats.value = store.state.currentUser.chats;
       chats.value.forEach(chat => {
         lastMessages.value[`chat/${chat.id}`] = {
-          message: "",
-          dateSent: ""
-        }
-        const data = store.getters.getChatData(chat.id);
-        if (data.length) {
-          chat.data = data;
-          lastMessages.value[`chat/${chat.id}`] = {
-            message: getLastMessage(data.at(-1)),
-            dateSent: getLastMessageTime(data.at(-1))
-          }
+          message: getLastMessage(chat.data.at(-1)),
+          dateSent: getLastMessageTime(chat.data.at(-1))
         }
         store.getters.getEventSubscription(
           `chat/${chat.id}`,
