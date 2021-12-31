@@ -1,0 +1,35 @@
+@import '~quasar-variables-styl'
+
+.custom-chat
+  border-right: 1px solid $indigo-10
+  &_list
+    width: 350px
+  &_item
+    width: 100%
+    background-color: transparent
+    height: 50px
+    &.selected
+      background-color: $grey-4
+    &:not(:first-child)
+      border-top: 1px solid white
+  &_item-section
+    &-icon
+      text-align: center
+      width: 56px
+      min-width: 56px !important
+    &-date
+      text-align: center
+      width: 50px
+      min-width: 50px !important
+      flex: unset !important
+      text-overflow: ellipsis
+      white-space: nowrap
+    &-main
+      width: calc( 100% - 104px ) !important
+  &_chat-title
+    font-weight: bold
+  &_chat-message
+    max-width: 100%
+    overflow: hidden
+    text-overflow: ellipsis
+    white-space: nowrap
