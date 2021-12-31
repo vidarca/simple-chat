@@ -43,3 +43,5 @@ npm run vue:lint
 3. Here in, you could login using any of default users (Jhon and Peter). Just click on any of user's avatars on the top-right corner of the screen. When both users are logged, you can't login with any other user.
 
 4. If you want to login with 2 different users, you can open a new browser tab, go to http://localhost:8080/ and select any available user.
+
+5. You can chat between both users, login and logout any time and data will be saved if the terminal with deepstream serve still running. If you close that terminal, all data will be lost.
